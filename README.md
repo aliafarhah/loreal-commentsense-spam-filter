@@ -15,7 +15,7 @@ The system uses intelligent pattern recognition to identify spam based on:
 - `Loreal_Spam_Detector.ipynb` - Main Google Colab notebook with data processing and AI model
 - `app.py` - Interactive Streamlit web application for demonstration
 
-## ▶ How to Run
+##  How to Run
 1.  Open `Loreal_Spam_Detector.ipynb` in Google Colab
 2.  Run all cells to process the dataset and train the model
 3.  Launch the demo app with: `!streamlit run app.py`
