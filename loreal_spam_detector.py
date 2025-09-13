@@ -13,7 +13,7 @@ print(os.listdir('/content'))
 !unzip "/content/dataset.zip" -d "/content/data"
 
 import pandas as pd
-df = pd.read_csv('/content/data/comments1.csv') # <-- CHANGE THIS NAME
+df = pd.read_csv('/content/data/comments1.csv')
 print("Columns in the data:", df.columns.tolist())
 df.head()
 
@@ -39,7 +39,7 @@ def update_display():
     with comment_display:
         clear_output(wait=True)
         if current_index < len(sample_df):
-            comment = sample_df.iloc[current_index]['textOriginal'] # <- USE YOUR COLUMN NAME
+            comment = sample_df.iloc[current_index]['textOriginal']
             print(f"Comment {current_index+1}/100:\n---\n{comment}\n---")
         else:
             print("Done! You've labeled 100 comments.")
@@ -51,7 +51,7 @@ def on_spam_clicked(b):
     next_comment()
 
 def on_not_spam_clicked(b):
-    next_comment() # Already 0 (Not Spam)
+    next_comment() # Already 0
 
 def next_comment():
     global current_index
@@ -64,8 +64,6 @@ not_spam_button.on_click(on_not_spam_clicked)
 display(widgets.HBox([spam_button, not_spam_button]))
 display(comment_display)
 update_display()
-
-# STEP 6: GUARANTEED RULE-BASED SPAM FILTER
 
 import re
 
@@ -107,11 +105,8 @@ def is_spam(comment):
     emoji_count = len(re.findall(r'[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]', comment_str))
     if emoji_count >= 5:
         return True
-
-    # If none of the rules above are triggered, it's not spam
     return False
 
-# Test the function immediately
 test_comments = [
     "follow me @user123",
     "Follow me for more content!",
@@ -131,7 +126,7 @@ for comment in test_comments:
     else:
         print(f"✅ NOT SPAM - '{comment}'")
 
-# TEST THE GUARANTEED RULE-BASED FILTER
+# TEST
 
 import re
 import pandas as pd
@@ -174,11 +169,8 @@ def is_spam(comment):
     emoji_count = len(re.findall(r'[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]', comment_str))
     if emoji_count >= 5:
         return True
-
-    # If none of the rules above are triggered, it's not spam
     return False
 
-# Test the function immediately
 test_comments = [
     "follow me @user123",                  # Should be SPAM
     "Follow me for more content!",         # Should be SPAM
@@ -201,11 +193,11 @@ for comment in test_comments:
         print(f"✅ NOT SPAM - '{comment}'")
 
 import pandas as pd
-df = pd.read_csv('/content/data/comments2.csv') # <-- CHANGE THIS NAME
+df = pd.read_csv('/content/data/comments2.csv')
 print("Columns in the data:", df.columns.tolist())
 df.head()
 
-# AUTOMATIC AI SPAM DETECTION (NO MANUAL LABELING NEEDED)
+# AUTOMATIC AI SPAM DETECTION
 import pandas as pd
 import re
 
@@ -297,14 +289,13 @@ for idx, row in spam_samples.iterrows():
     print(f"   Reason: {row['spam_reason']}")
     print()
 
-# FINAL QUALITY CHECK FOR L'ORÉAL DATATHON SUBMISSION
+# FINAL QC FOR L'ORÉAL DATATHON SUBMISSION
 
 print("🔍 FINAL QUALITY CHECK")
 print("="*50)
 print("1. Testing Spam Filter on L'Oréal Data...")
 print("="*50)
 
-# 1. Show stats on L'Oréal data
 spam_count = df['is_spam'].sum()
 total_count = len(df)
 spam_ratio = spam_count / total_count
@@ -318,7 +309,6 @@ print("\n" + "="*50)
 print("2. Testing Rule Effectiveness...")
 print("="*50)
 
-# 2. Show examples of what you catch
 spam_examples = df[df['is_spam'] == True]['textOriginal'].head(3).tolist()
 genuine_examples = df[df['is_spam'] == False]['textOriginal'].head(3).tolist()
 
@@ -334,7 +324,6 @@ print("\n" + "="*50)
 print("3. Business Value for L'Oréal")
 print("="*50)
 
-# 3. Explain the business value
 print("🎯 YOUR PROJECT DELIVERS:")
 print("   • Clean Share of Engagement (SoE) metrics")
 print("   • Accurate ratio of quality comments: {:.1%}".format(1 - spam_ratio))
